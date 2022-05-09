@@ -1,16 +1,13 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { serverGET } from "../../utils/api";
-import capitalizeString from "../../utils/capitalize-string";
 import { CountryLiveCasesContext } from "../../utils/contexts";
 
 export default function Home() {
   const [isFindingCases, setIsFindingCases] = useState();
   const [isSavingLiveCases, setIsSavingLiveCases] = useState();
 
-  const { countryLiveCases, updateCountryLiveCases } = useContext(
-    CountryLiveCasesContext
-  );
+  const { countryLiveCases, updateCountryLiveCases, saveCountryLiveCases } =
+    useContext(CountryLiveCasesContext);
   const countryCaseStats = countryLiveCases?.All;
 
   const { register, handleSubmit } = useForm();
@@ -18,16 +15,23 @@ export default function Home() {
   const findCountryLiveCases = async ({ country }) => {
     setIsFindingCases(!isFindingCases);
     try {
-      const countryLiveCases = await serverGET({
-        url: `cases?country=${capitalizeString(country)}`,
-      });
-
-      if (countryLiveCases) {
-        updateCountryLiveCases(countryLiveCases);
+      await updateCountryLiveCases(country, () => {
         setIsFindingCases(!!isFindingCases);
-      }
+      });
     } catch (e) {
       console.log("Failed finding resource...", e);
+    }
+  };
+
+  const addCountryLiveCases = async (countryLiveCaseData) => {
+    setIsSavingLiveCases(!isSavingLiveCases);
+    try {
+      await saveCountryLiveCases(countryLiveCaseData, ({ message }) => {
+        console.log(message);
+        setIsSavingLiveCases(!!isSavingLiveCases);
+      });
+    } catch (e) {
+      console.log("Failed saving country live cases.", e);
     }
   };
 
@@ -115,7 +119,7 @@ export default function Home() {
             </div>
 
             <button
-              onClick={() => console.log("Saving cases...")}
+              onClick={() => addCountryLiveCases(countryLiveCases)}
               lassName="w-full bg-sky-600 rounded-full"
             >
               {`${
