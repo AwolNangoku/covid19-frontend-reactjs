@@ -1,6 +1,6 @@
 export default async function serverGet({ url }) {
   try {
-    const response = await fetch(`https://covid-api.mmediagroup.fr/v1/${url}`, {
+    const response = await fetch(url, {
       method: "get",
       headers: {
         Accept: "application/json",

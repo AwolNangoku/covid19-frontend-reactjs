@@ -1,9 +1,7 @@
-export default function ProvinceLiveCases({ stateLiveCases }) {
+export default function ProvinceLiveCases({ title, stateLiveCases }) {
   return (
     <div>
-      <h1 className="text-lg font-semibold underline">
-        Provinces/States' Live Cases Information:
-      </h1>
+      <h1 className="text-lg font-semibold underline">{title}</h1>
       <table className="table-fixed">
         <thead>
           <tr>

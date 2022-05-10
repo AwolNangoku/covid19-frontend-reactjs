@@ -17,6 +17,7 @@ export default function App() {
         />
 
         <Route path="/countries" element={<CountriesPage />} />
+        <Route path="/countries/:country" element={<CountriesPage />} />
 
         <Route path="*" element={<NoMatchRoute />} />
       </Routes>

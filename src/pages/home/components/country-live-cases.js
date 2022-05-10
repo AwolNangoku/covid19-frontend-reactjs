@@ -1,9 +1,7 @@
-export default function CountryLiveCases({ countryLiveCases }) {
+export default function CountryLiveCases({ title, countryLiveCases }) {
   return (
     <div>
-      <h1 className="text-lg font-semibold underline">
-        Country Live Cases Information:
-      </h1>
+      <h1 className="text-lg font-semibold underline">{title}</h1>
       <table className="table-auto">
         <thead>
           <tr>

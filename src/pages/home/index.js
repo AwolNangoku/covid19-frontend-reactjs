@@ -66,8 +66,14 @@ export default function Home() {
           <p>Fetching country live covid cases...</p>
         ) : countryCaseStats ? (
           <div className="place-content-center space-y-3 w-full">
-            <CountryStatsTable countryLiveCases={countryCaseStats} />
-            <ProvinceStatsTable stateLiveCases={countryLiveCases} />
+            <CountryStatsTable
+              title="Country Live Cases Information:"
+              countryLiveCases={countryCaseStats}
+            />
+            <ProvinceStatsTable
+              title="Provinces/States' Live Cases Information:"
+              stateLiveCases={countryLiveCases}
+            />
 
             <div className="w-full flex space-x-4">
               <button
